@@ -33,15 +33,14 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-
+import Home from './components/Home'
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
         <Route path="/" component={Login} exact/>
-        {/* <Route path="/home" component={Home} exact/> */}
+        <Route path="/home" component={Home} exact/>
         <Route path="/register" component={Register} exact/>
-     
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

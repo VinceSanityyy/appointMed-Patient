@@ -7,7 +7,7 @@ export const Login: React.FC = () =>{
 
     async function loginAuth(){
        const res = await loginUser(email,password)
-       console.log(res)
+      //  console.log(res)
     }
 
     return(
@@ -31,7 +31,7 @@ export const Login: React.FC = () =>{
           </IonCard>
           <IonRow class="cardfooter">
             <IonCol>
-            <IonButton color="success" expand="block" type="submit" onClick={loginAuth}>Login</IonButton>
+            <IonButton color="primary" expand="block" type="submit" onClick={loginAuth}>Login</IonButton>
             <IonButton color="danger" expand="block" routerLink='/register'>Register</IonButton>
             </IonCol>
             </IonRow> 
