@@ -1,6 +1,6 @@
 import React from 'react';
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonBadge, IonPage, IonRouterOutlet } from '@ionic/react';
-import { calendar, create, logOut, personCircle, map, informationCircle, people, person } from 'ionicons/icons';
+import { calendar, create, logOut, personCircle, map, informationCircle, people, person, mail } from 'ionicons/icons';
 import { Redirect, Route } from 'react-router';
 
 import Tab1 from '../pages/Tab1'
@@ -21,15 +21,15 @@ export const Home: React.FC = () => {
         </IonTabButton>
         <IonTabButton tab="speakers" href="/tab2">
           <IonIcon icon={person} />
-          <IonLabel>Doctor</IonLabel>
+          <IonLabel>Doctors</IonLabel>
         </IonTabButton>
         <IonTabButton tab="map" href="/tab3">
           <IonIcon icon={map} />
-          <IonLabel>Map</IonLabel>
+          <IonLabel>Clinics</IonLabel>
         </IonTabButton>
         <IonTabButton tab="about" href="/tab1">
-          <IonIcon icon={informationCircle} />
-          <IonLabel>About</IonLabel>
+          <IonIcon icon={mail} />
+          <IonLabel>Messages</IonLabel>
         </IonTabButton>
       </IonTabBar>
     </IonTabs>

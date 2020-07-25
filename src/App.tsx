@@ -13,6 +13,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import { ellipse, square, triangle } from 'ionicons/icons';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import AddAppointment from './pages/AddAppointment';
 import Tab3 from './pages/Tab3';
 
 /* Core CSS required for Ionic components to work properly */
@@ -41,6 +42,7 @@ const App: React.FC = () => (
         <Route path="/" component={Login} exact/>
         <Route path="/home" component={Home} exact/>
         <Route path="/register" component={Register} exact/>
+        <Route path="/addAppointMent" component={AddAppointment} exact/>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
