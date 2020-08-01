@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { IonPage, IonHeader, IonContent, IonToolbar, IonTitle, IonBackButton, IonButtons, IonLabel, IonItem, IonInput, IonCard, IonCardHeader, IonCardContent, IonDatetime, IonRow, IonCol, IonButton } from '@ionic/react';
+import * as firebase from 'firebase';
 
 export const Register: React.FC = () =>{
     const [name,setName] = useState('')
@@ -9,8 +10,39 @@ export const Register: React.FC = () =>{
     const [selectedDate,setSelectedDate] = useState('')
 
     function Register(){
-        console.log('Hello')
+        const loading = document.createElement('ion-loading');
+        loading.message = 'Please Wait..';
+    
+        document.body.appendChild(loading);
+        loading.present();
+        firebase.auth().createUserWithEmailAndPassword(email,password).then((res)=>{
+          console.log(res.user!.uid)
+    
+          loading.dismiss();
+          // firebase.database().ref('users/patients').push({
+          //   name: name,
+          //   email: email,
+          //   birthday: selectedDate,
+          //   phone: phone,
+          //   type: 'patient',
+        
+          // })
+          // window.location.href = "/";
+        }).catch((err)=>{
+          console.log(err)
+          loading.dismiss();
+          error()
+        })
     }
+    function error() {
+      const alert = document.createElement('ion-alert');
+      alert.header = 'Alert';
+      alert.message = 'Request cannot be processed';
+      alert.buttons = ['OK'];
+      document.body.appendChild(alert);
+      return alert.present();
+    }
+
     return(
         <IonPage>
             <IonHeader>

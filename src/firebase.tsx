@@ -13,12 +13,28 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 export async function loginUser(email:string, password:string){
+  const loading = document.createElement('ion-loading');
+  loading.message = 'Please Wait..';
+  document.body.appendChild(loading);
+  loading.present();
   const res = await firebase.auth().signInWithEmailAndPassword(email,password).then((res)=>{
     console.log(res)
-    window.location.href = "/home";
+    loading.dismiss();
+    // window.location.href = "/home";
   }).catch((err)=>{
     console.log(err)
+    loading.dismiss();
+    accountNotFoundAlert()
   })
+}
+
+function accountNotFoundAlert() {
+  const alert = document.createElement('ion-alert');
+  alert.header = 'Alert';
+  alert.message = 'Account Not Found';
+  alert.buttons = ['OK'];
+  document.body.appendChild(alert);
+  return alert.present();
 }
 
 // export async function loginUser(email:string, password:string){
