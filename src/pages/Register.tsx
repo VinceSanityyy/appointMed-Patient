@@ -17,17 +17,19 @@ export const Register: React.FC = () =>{
         loading.present();
         firebase.auth().createUserWithEmailAndPassword(email,password).then((res)=>{
           console.log(res.user!.uid)
-    
           loading.dismiss();
-          // firebase.database().ref('users/patients').push({
-          //   name: name,
-          //   email: email,
-          //   birthday: selectedDate,
-          //   phone: phone,
-          //   type: 'patient',
-        
-          // })
-          // window.location.href = "/";
+          toast()
+          firebase.database().ref('users/patients').push({
+            name: name,
+            email: email,
+            birthday: selectedDate,
+            phone: phone,
+            type: 'patient',
+            uid: res.user!.uid
+          }).then((data)=>{
+            
+            window.location.href = "/";
+          })
         }).catch((err)=>{
           console.log(err)
           loading.dismiss();
@@ -41,6 +43,15 @@ export const Register: React.FC = () =>{
       alert.buttons = ['OK'];
       document.body.appendChild(alert);
       return alert.present();
+    }
+
+    function toast(){
+      const toast = document.createElement('ion-toast');
+      toast.message = 'You can login now';
+      toast.duration = 2000;
+      toast.position = 'bottom';
+      document.body.appendChild(toast);
+      return toast.present();
     }
 
     return(

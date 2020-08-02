@@ -20,7 +20,7 @@ export async function loginUser(email:string, password:string){
   const res = await firebase.auth().signInWithEmailAndPassword(email,password).then((res)=>{
     console.log(res)
     loading.dismiss();
-    // window.location.href = "/home";
+    window.location.href = "/home";
   }).catch((err)=>{
     console.log(err)
     loading.dismiss();
