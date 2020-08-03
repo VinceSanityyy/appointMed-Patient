@@ -12,7 +12,7 @@ export const Home: React.FC = () => {
   function signOut() {
     const alert = document.createElement('ion-alert');
     alert.cssClass = 'my-custom-class';
-    alert.header = 'Confirm!';
+    alert.header = 'Warning';
     alert.message = 'Message <strong>Are you sure you want to sign out?</strong>!!!';
     alert.buttons = [
       {
@@ -20,7 +20,7 @@ export const Home: React.FC = () => {
         role: 'cancel',
         cssClass: 'secondary',
         handler: (blah) => {
-          console.log('Confirm Cancel: blah');
+          console.log('Cancelled');
         }
       }, {
         text: 'Okay',
@@ -31,6 +31,7 @@ export const Home: React.FC = () => {
           loading.present();
           firebase.auth().signOut().then(function() {
             loading.dismiss();
+            localStorage.clear()
             window.location.href = "/"
           }).catch(function(error) {
             loading.dismiss();

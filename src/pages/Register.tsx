@@ -19,7 +19,7 @@ export const Register: React.FC = () =>{
           console.log(res.user!.uid)
           loading.dismiss();
           toast()
-          firebase.database().ref('users/patients/'+res.user.uid).set({
+          firebase.database().ref('users/'+res.user.uid).set({
             name: name,
             email: email,
             birthday: selectedDate,
@@ -27,7 +27,6 @@ export const Register: React.FC = () =>{
             type: 'patient',
             uid: res.user!.uid
           }).then((data)=>{
-           
             window.location.href = "/";
           })
         }).catch((err)=>{
