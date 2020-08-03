@@ -6,7 +6,43 @@ import { Redirect, Route } from 'react-router';
 import Tab1 from '../pages/Tab1'
 import Tab2 from '../pages/Tab2'
 import Tab3 from '../pages/Tab3'
+import * as firebase from 'firebase'
 export const Home: React.FC = () => {
+
+  function signOut() {
+    const alert = document.createElement('ion-alert');
+    alert.cssClass = 'my-custom-class';
+    alert.header = 'Confirm!';
+    alert.message = 'Message <strong>Are you sure you want to sign out?</strong>!!!';
+    alert.buttons = [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          console.log('Confirm Cancel: blah');
+        }
+      }, {
+        text: 'Okay',
+        handler: () => {
+          const loading = document.createElement('ion-loading');
+          loading.message = 'Please Wait..';
+          document.body.appendChild(loading);
+          loading.present();
+          firebase.auth().signOut().then(function() {
+            loading.dismiss();
+            window.location.href = "/"
+          }).catch(function(error) {
+            loading.dismiss();
+            console.log(error)
+          });
+        }
+      }
+    ];
+    document.body.appendChild(alert);
+    return alert.present();
+  }
+  
     return(
       <IonTabs>
       <IonRouterOutlet>
@@ -30,6 +66,10 @@ export const Home: React.FC = () => {
         <IonTabButton tab="about" href="/tab1">
           <IonIcon icon={mail} />
           <IonLabel>Messages</IonLabel>
+        </IonTabButton>
+        <IonTabButton onClick={signOut} >
+          <IonIcon icon={logOut} />
+          <IonLabel>Sign Out</IonLabel>
         </IonTabButton>
       </IonTabBar>
     </IonTabs>
