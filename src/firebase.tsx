@@ -22,6 +22,7 @@ export async function loginUser(email:string, password:string){
     localStorage.setItem('uid',res.user!.uid)
     firebase.database().ref().child('users').child(localStorage.getItem('uid')).once('value',snap =>{
       console.log(snap.val())
+      window.location.href = "/home/tab1"
       if(snap.val().type == 'patient'){
         window.location.href = "/home"
       }else if(snap.val().type == 'doctor'){
