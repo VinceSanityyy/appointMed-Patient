@@ -47,24 +47,24 @@ export const Home: React.FC = () => {
     return(
       <IonTabs>
       <IonRouterOutlet>
-        <Route path="/tab1" component={Tab1} />
-        <Route path="/tab2" component={Tab2} />
-        <Route path="/tab3" component={Tab3} />
+        <Route path="/home/tab1" component={Tab1} />
+        <Route path="/home/tab2" component={Tab2} />
+        <Route path="/home/tab3" component={Tab3} />
       </IonRouterOutlet>
       <IonTabBar color="dark" slot="bottom">
-        <IonTabButton tab="schedule" href="/tab1">
+        <IonTabButton tab="schedule" href="/home/tab1">
           <IonIcon icon={calendar} />
           <IonLabel>Appointments</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="speakers" href="/tab2">
+        <IonTabButton tab="speakers" href="/home/tab2">
           <IonIcon icon={person} />
           <IonLabel>Doctors</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="map" href="/tab3">
+        <IonTabButton tab="map" href="/home/tab3">
           <IonIcon icon={map} />
           <IonLabel>Clinics</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="about" href="/tab1">
+        <IonTabButton tab="about" href="/home/tab1">
           <IonIcon icon={mail} />
           <IonLabel>Messages</IonLabel>
         </IonTabButton>
