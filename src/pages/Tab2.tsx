@@ -1,24 +1,33 @@
-import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+import React, { useState } from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSearchbar, IonButton, useIonViewDidEnter, useIonViewWillEnter } from '@ionic/react';
+// import ExploreContainer from '../components/ExploreContainer';
 import './Tab2.css';
+import { GoogleMap, withScriptjs, withGoogleMap } from 'react-google-maps' 
 
 const Tab2: React.FC = () => {
+  const [searchText, setSearchText] = useState('');
+
+  function setSearch(){
+    console.log(searchText)
+  }
+
+  useIonViewWillEnter(()=>{
+    console.log('Enter')
+  })
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 2</IonTitle>
+          <IonTitle>Doctors</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 2</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Tab 2 page" />
+        <IonSearchbar value={searchText} onIonChange={e => setSearchText(e.detail.value!)}  ></IonSearchbar>
+
       </IonContent>
+
+      <IonButton expand="block" onClick={setSearch} color="primary">Primary</IonButton>
     </IonPage>
   );
 };

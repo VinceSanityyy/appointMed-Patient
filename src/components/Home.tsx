@@ -8,7 +8,6 @@ import Tab2 from '../pages/Tab2'
 import Tab3 from '../pages/Tab3'
 import * as firebase from 'firebase'
 export const Home: React.FC = () => {
-
   function signOut() {
     const alert = document.createElement('ion-alert');
     alert.cssClass = 'my-custom-class';

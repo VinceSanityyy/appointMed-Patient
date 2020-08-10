@@ -22,9 +22,8 @@ export async function loginUser(email:string, password:string){
     localStorage.setItem('uid',res.user!.uid)
     firebase.database().ref().child('users').child(localStorage.getItem('uid')).once('value',snap =>{
       console.log(snap.val())
-      window.location.href = "/home/tab1"
       if(snap.val().type == 'patient'){
-        window.location.href = "/home"
+        window.location.href = "/home/tab1"
       }else if(snap.val().type == 'doctor'){
         alert('doctor user')
       }else{
@@ -45,15 +44,3 @@ function accountNotFoundAlert() {
   document.body.appendChild(alert);
   return alert.present();
 }
-
-// export async function loginUser(email:string, password:string){
-//   const res = await firebase.auth().signInWithEmailAndPassword(email,password).then((res)=>{
-//     console.log(res)
-//   }).catch((err)=>{
-//     console.log(err)
-//   })
-//   if(email == '' && password == ''){
-//     console.log('success')
-//     window.location.href = "/home";
-//   }
-// }

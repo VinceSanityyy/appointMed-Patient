@@ -13,16 +13,36 @@ import {
   IonButton,
   IonFab,
   IonFabButton,
-  IonIcon
+  IonIcon,
+  IonRefresher,
+  IonRefresherContent
 } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab1.css';
-import { add } from 'ionicons/icons';
+import { add, chevronDownCircleOutline } from 'ionicons/icons';
+import { RefresherEventDetail } from '@ionic/core';
+
+
+import * as firebase from 'firebase/app'
+import 'firebase/database'
+import 'firebase/storage'
 
 const Tab1: React.FC = () => {
 
   function clickAdd() {
     console.log('Hello')
+  }
+  
+
+  function doRefresh( event: CustomEvent<RefresherEventDetail>){
+    console.log('Refreshed')
+    firebase.database().ref('users').orderByChild('type').equalTo('doctor').on('value',(snapshot)=>{
+      console.log(snapshot.val())
+      event.detail.complete()
+  })
+  }
+
+  function getDoctors(){
 
   }
   return (
@@ -33,8 +53,13 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+    
+      <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
+      <IonRefresherContent>
+        </IonRefresherContent>
+      </IonRefresher>
 
-        <IonList>
+      <IonList>
           <IonItem>
             <IonLabel>Pokémon Yellow</IonLabel>
           </IonItem>
@@ -51,13 +76,14 @@ const Tab1: React.FC = () => {
             <IonLabel>Super Mario World</IonLabel>
           </IonItem>
         </IonList>
+      </IonContent>
 
-        <IonFab vertical="bottom" horizontal="end" slot="fixed">
+      
+      <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton routerLink="/addAppointMent">
             <IonIcon icon={add} />
           </IonFabButton>
         </IonFab>
-      </IonContent>
     </IonPage>
   );
 };
