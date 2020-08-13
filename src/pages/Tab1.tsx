@@ -28,23 +28,15 @@ import 'firebase/database'
 import 'firebase/storage'
 
 const Tab1: React.FC = () => {
-
+const [doctors, setDoctor] = React.useState([])
   function clickAdd() {
     console.log('Hello')
   }
   
 
-  function doRefresh( event: CustomEvent<RefresherEventDetail>){
-    console.log('Refreshed')
-    firebase.database().ref('users').orderByChild('type').equalTo('doctor').on('value',(snapshot)=>{
-      console.log(snapshot.val())
-      event.detail.complete()
-  })
-  }
 
-  function getDoctors(){
 
-  }
+
   return (
     <IonPage>
       <IonHeader>
@@ -54,10 +46,10 @@ const Tab1: React.FC = () => {
       </IonHeader>
       <IonContent>
     
-      <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
+      {/* <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
       <IonRefresherContent>
         </IonRefresherContent>
-      </IonRefresher>
+      </IonRefresher> */}
 
       <IonList>
           <IonItem>

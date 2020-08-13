@@ -21,6 +21,7 @@
     "firebase": "^7.15.5",
     "firebase-tools": "^8.6.0",
     "ionicons": "^5.0.0",
+    "object-to-array-convert": "^1.1.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-google-maps": "^9.4.5",
