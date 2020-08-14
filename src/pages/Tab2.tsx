@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSearchbar, IonButton, useIonViewDidEnter, useIonViewWillEnter, IonList, IonItem, IonLabel, IonRefresher, IonRefresherContent, IonText } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSearchbar, IonButton, useIonViewDidEnter, useIonViewWillEnter, IonList, IonItem, IonLabel, IonRefresher, IonRefresherContent, IonText, useIonViewDidLeave } from '@ionic/react';
 // import ExploreContainer from '../components/ExploreContainer';
 import './Tab2.css';
 import { GoogleMap, withScriptjs, withGoogleMap } from 'react-google-maps' 
@@ -12,25 +12,52 @@ const Tab2: React.FC = () => {
   const [searchText, setSearchText] = useState('');
   const [doctors, setDoctor] = React.useState([]);
   const [docArr,setDoc] = React.useState([])
+
   function setSearch(){
     console.log(searchText)
   }
 
-  useIonViewWillEnter(()=>{
+  // useEffect( () => {
+  //   console.log('Enter')
+  //   let newArr = []
+  //   firebase.database().ref('users').orderByChild('type').equalTo('doctor').on('value',(snapshot)=>{
+  //     let key;
+  //     snapshot.forEach( (childSnap) => {
+  //       key = childSnap.key
+  //       const snapVal = snapshot.val();
+  //       newArr.push(snapVal[key])
+  //     })
+  //       setDoctor(newArr)
+  //   })
+
+  // }, [])
+
+  useEffect( () => {
     console.log('Enter')
     firebase.database().ref('users').orderByChild('type').equalTo('doctor').on('value',(snapshot)=>{
-          setDoctor(Object.keys(snapshot.val()).map(key => ({ [key]: snapshot.val()[key] })))
-          // console.log(doctors)
-        })
-  })
+      let key;
+      let newArr = []
+      snapshot.forEach( (childSnap) => {
+        key = childSnap.key
+        const snapVal = snapshot.val();
+        newArr.push(snapVal[key])
+      })
+      setDoctor(newArr)
+    })
+  }, [])
 
+  // useIonViewDidEnter(()=>{
+  
+  // })
+
+  // useIonViewDidLeave(()=>{
+  //   console.log('Leave')
+  //   setDoctor([])
+  // })
 
   function doRefresh( event: CustomEvent<RefresherEventDetail>){
     console.log('Refreshed')
-    firebase.database().ref('users').orderByChild('type').equalTo('doctor').on('value',(snapshot)=>{
-      setDoctor(Object.keys(snapshot.val()).map(key => ({ [key]: snapshot.val()[key] })))
-      event.detail.complete()
-    })
+    event.detail.complete()
   }
 
   function getDoctors(){
@@ -53,7 +80,7 @@ const Tab2: React.FC = () => {
       <IonList>
           {doctors.map((elem, index) => {
             // index has to come from the second parameter from map
-            console.log(doctors)
+             console.log(doctors)
             return (
               <IonItem key={index}>
                 <IonLabel>
@@ -67,7 +94,6 @@ const Tab2: React.FC = () => {
               </IonItem>
             );
           })}
-         
         </IonList>
       </IonContent>
 
