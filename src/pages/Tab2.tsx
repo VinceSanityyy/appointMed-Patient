@@ -59,6 +59,7 @@ const Tab2: React.FC = () => {
       })
       console.log(snapshot.val())
       setDoctor(newArr)
+      console.log(searchText)
     })
   }
 
@@ -86,11 +87,11 @@ const Tab2: React.FC = () => {
       </IonRefresher>
       <IonList>
           {doctors.map((elem, index) => {
-            // index has to come from the second parameter from map
-             console.log(doctors)
+            //  console.log(doctors)
             return (
-              <IonItem key={index}>
-                <IonLabel>
+              // <IonItem routerLink={`/addAppointment/${elem["uid"]}`} key={index}>
+              <IonItem routerLink="/addAppointment" key={index}>
+                <IonLabel >
                   <IonText className="font-weight: bold;">
                     <h3>{elem["name"]}</h3>
                   </IonText>
