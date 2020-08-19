@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSearchbar, IonButton, useIonViewDidEnter, useIonViewWillEnter, IonList, IonItem, IonLabel, IonRefresher, IonRefresherContent, IonText, useIonViewDidLeave } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSearchbar, IonButton, useIonViewDidEnter, useIonViewWillEnter, IonList, IonItem, IonLabel, IonRefresher, IonRefresherContent, IonText, useIonViewDidLeave, IonAvatar } from '@ionic/react';
 // import ExploreContainer from '../components/ExploreContainer';
 import './Tab2.css';
 import { GoogleMap, withScriptjs, withGoogleMap } from 'react-google-maps' 
@@ -11,7 +11,7 @@ import { O2A } from 'object-to-array-convert';
 const Tab2: React.FC = () => {
   const [searchText, setSearchText] = useState('');
   const [doctors, setDoctor] = React.useState([]);
-  const [docArr,setDoc] = React.useState([])
+  const [details, setDetails] = React.useState([])
 
   function setSearch(){
     console.log(searchText)
@@ -68,8 +68,9 @@ const Tab2: React.FC = () => {
     event.detail.complete()
   }
 
-  function getDoctors(){
-    console.log(doctors)
+  function test(e,elem){
+    console.log(elem)
+    // setDetails(elem)
   }
 
   return (
@@ -90,12 +91,15 @@ const Tab2: React.FC = () => {
             //  console.log(doctors)
             return (
               // <IonItem routerLink={`/addAppointment/${elem["uid"]}`} key={index}>
-              <IonItem routerLink="/addAppointment" key={index}>
+              <IonItem onClick={(e)=> test(e,elem["imageUrl"])} routerLink="/addAppointment" key={index}>
+                <IonAvatar slot="start">
+                  <img src={elem['imageUrl']} ></img>
+                </IonAvatar>
                 <IonLabel >
                   <IonText className="font-weight: bold;">
-                    <h3>{elem["name"]}</h3>
+                    <h2>{elem["name"]}</h2>
                   </IonText>
-                  <h4>{elem["speciality"]}</h4>
+                  <h3>{elem["speciality"]}</h3>
                   <h4>{elem["email"]}</h4>
                 </IonLabel>
                 <br></br>

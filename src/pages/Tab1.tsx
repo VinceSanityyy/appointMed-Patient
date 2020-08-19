@@ -69,13 +69,6 @@ const [doctors, setDoctor] = React.useState([])
           </IonItem>
         </IonList>
       </IonContent>
-
-      
-      <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton routerLink="/addAppointMent">
-            <IonIcon icon={add} />
-          </IonFabButton>
-        </IonFab>
     </IonPage>
   );
 };
