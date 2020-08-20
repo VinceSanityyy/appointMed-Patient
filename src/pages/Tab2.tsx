@@ -32,6 +32,11 @@ const Tab2: React.FC = () => {
     })
   }, [])
 
+  useIonViewWillEnter(()=>{
+    localStorage.setItem("details",null)
+    console.log('Details Clear')
+  })
+
   function search(){
     firebase.database().ref('users').orderByChild('name').startAt(searchText).endAt(searchText).on('value',(snapshot)=>{
       let key;
@@ -70,8 +75,8 @@ const Tab2: React.FC = () => {
 
   function test(e,elem){
     console.log(elem)
-    // setDetails(elem)
-  }
+    localStorage.setItem("details", JSON.stringify(elem)) 
+  } 
 
   return (
     <IonPage>
@@ -91,7 +96,7 @@ const Tab2: React.FC = () => {
             //  console.log(doctors)
             return (
               // <IonItem routerLink={`/addAppointment/${elem["uid"]}`} key={index}>
-              <IonItem onClick={(e)=> test(e,elem["imageUrl"])} routerLink="/addAppointment" key={index}>
+              <IonItem onClick={(e)=> test(e,elem)} routerLink="/addAppointment" key={index}>
                 <IonAvatar slot="start">
                   <img src={elem['imageUrl']} ></img>
                 </IonAvatar>

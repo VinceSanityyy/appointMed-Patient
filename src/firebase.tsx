@@ -1,4 +1,6 @@
 import * as firebase from 'firebase';
+import { setUserState } from './redux/actions';
+import { useDispatch } from 'react-redux';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyA-VE-uUlhQkrrYCKF6cz6BftmPxYahO1w',
