@@ -32,7 +32,7 @@ export const AddAppointment:React.FC = () =>{
           </IonCardHeader>
 
           <IonCardContent>
-                asdasdasdadasdasda
+                BULLSHIT
       </IonCardContent>
         </IonCard>
            
