@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSearchbar, IonButton, useIonViewDidEnter, useIonViewWillEnter, IonList, IonItem, IonLabel, IonRefresher, IonRefresherContent, IonText, useIonViewDidLeave, IonAvatar } from '@ionic/react';
-// import ExploreContainer from '../components/ExploreContainer';
 import './Tab2.css';
 import { GoogleMap, withScriptjs, withGoogleMap } from 'react-google-maps' 
 import * as firebase from 'firebase/app'
