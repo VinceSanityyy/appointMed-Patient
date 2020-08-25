@@ -22,8 +22,10 @@ export async function loginUser(email:string, password:string){
   const res = await firebase.auth().signInWithEmailAndPassword(email,password).then((res)=>{
     localStorage.setItem('email',res.user!.email)
     localStorage.setItem('uid',res.user!.uid)
+    console.log(res)
     firebase.database().ref().child('users').child(localStorage.getItem('uid')).once('value',snap =>{
-      console.log(snap.val())
+      // console.log(snap.val())
+       localStorage.setItem('name',snap.val().name)
       if(snap.val().type == 'patient'){
         window.location.href = "/home/tab1"
       }else if(snap.val().type == 'doctor'){

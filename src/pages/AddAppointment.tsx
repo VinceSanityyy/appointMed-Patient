@@ -22,9 +22,12 @@ import {
   IonAvatar,
   IonDatetime,
 } from "@ionic/react";
+import moment from 'moment'
+import * as firebase from 'firebase'
 export const AddAppointment: React.FC = () => {
   const [detail, setDetail] = React.useState([]);
   const [selectedDate, setSelectedDate] = React.useState('')
+  const [selectedTime, setSelectedTime] = React.useState('')
 
   useIonViewWillEnter(() => {
     console.log(JSON.parse(localStorage.getItem("details")));
@@ -32,7 +35,23 @@ export const AddAppointment: React.FC = () => {
   });
 
   function Try() {
-    console.log(selectedDate);
+    const loading = document.createElement('ion-loading');
+    loading.message = 'Please Wait..';
+    document.body.appendChild(loading);
+    loading.present();
+    console.log(moment(selectedDate).format('YYYY-MM-DD'))
+    console.log(moment(selectedTime).format('h:mm A'))
+    firebase.database().ref('appointments').set({
+      doctor: detail['name'],
+      doctor_email: detail['email'],
+      patient: localStorage.getItem('name'),
+      date: moment(selectedDate).format('YYYY-MM-DD'),
+      time: moment(selectedTime).format('h:mm A'),
+      status: 'pending',
+      queueNo: 99
+    })
+    loading.dismiss()
+    window.location.href = "/home/tab1"
   }
 
   return (
@@ -53,13 +72,15 @@ export const AddAppointment: React.FC = () => {
               Speciality: {detail["speciality"]}
             </IonCardSubtitle>
           </IonCardHeader>
-          <IonCardContent>Test
-          <IonLabel>MM DD YY</IonLabel>
-          <IonDatetime displayFormat="MM DD YY" placeholder="Select Date" value={selectedDate} onIonChange={e => setSelectedDate(e.detail.value!)}></IonDatetime>
+          <IonCardContent>
+          <IonLabel position="floating">Select Date</IonLabel>
+          <IonDatetime displayFormat="MM/DD/YYYY" pickerFormat="MM/DD/YYYY" placeholder={moment().format('YYYY-MM-DD')} value={selectedDate} onIonChange={e => setSelectedDate(e.detail.value!)}></IonDatetime>
+          <IonLabel>Time</IonLabel>
+          <IonDatetime displayFormat="h:mm A" pickerFormat="h:mm A" placeholder={moment().format('h:mm A')} value={selectedTime} onIonChange={e => setSelectedTime(e.detail.value)}></IonDatetime>
           </IonCardContent>
         </IonCard>
         <IonButton expand="block" color="primary" onClick={Try}>
-          Add
+          Set Schedule
         </IonButton>
       </IonContent>
     </IonPage>
