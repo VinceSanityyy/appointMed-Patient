@@ -3,12 +3,12 @@ import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonBadge, IonPage,
 import { calendar, create, logOut, personCircle, map, informationCircle, people, person, mail } from 'ionicons/icons';
 import { Redirect, Route } from 'react-router';
 
+// import Appointments from '../pages/patient/Appointments'
 import Appointments from '../pages/patient/Appointments'
 import Tab2 from '../pages/patient/Doctors'
 import Tab3 from '../pages/patient/Clinics'
-import Messages from '../pages/patient/Messages'
 import * as firebase from 'firebase'
-export const Home: React.FC = () => {
+export const HomeSecretary: React.FC = () => {
   function signOut() {
     const alert = document.createElement('ion-alert');
     alert.cssClass = 'my-custom-class';
@@ -47,27 +47,12 @@ export const Home: React.FC = () => {
     return(
       <IonTabs>
       <IonRouterOutlet>
-        <Route path="/home/tab1" component={Appointments} />
-        <Route path="/home/tab2" component={Tab2} />
-        <Route path="/home/tab3" component={Tab3} />
-        <Route path="/home/messages" component={Messages} />
+        <Route path="/secretary/appointments" component={Appointments} />
       </IonRouterOutlet>
       <IonTabBar color="dark" slot="bottom">
-        <IonTabButton tab="schedule" href="/home/tab1">
+        <IonTabButton tab="schedule" href="/secretary/appointments">
           <IonIcon icon={calendar} />
           <IonLabel>Appointments</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="speakers" href="/home/tab2">
-          <IonIcon icon={person} />
-          <IonLabel>Doctors</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="map" href="/home/tab3">
-          <IonIcon icon={map} />
-          <IonLabel>Clinics</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="about" href="/home/messages">
-          <IonIcon icon={mail} />
-          <IonLabel>Messages</IonLabel>
         </IonTabButton>
         <IonTabButton onClick={signOut} >
           <IonIcon icon={logOut} />
@@ -78,4 +63,4 @@ export const Home: React.FC = () => {
     )
 };
 
-export default Home;
+export default HomeSecretary;

@@ -13,8 +13,10 @@ import { IonReactRouter } from '@ionic/react-router';
 import { ellipse, square, triangle } from 'ionicons/icons';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import AddAppointment from './pages/AddAppointment';
-import Tab1 from './pages/Tab1';
+import AddAppointment from './pages/patient/AddAppointment';
+// import Tab1 from './pages/patient/Appointments';
+import Appointments from './pages/patient/Appointments'
+import Chat from './pages/secretary/Chat'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -35,14 +37,17 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import Home from './components/Home'
+import HomeSecretary from './components/HomeSecretary';
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
         <Route path="/" component={Login} exact />
         <Route path="/home" component={Home}/>
+        <Route path="/secretary" component={HomeSecretary}/>
         <Route path="/register" component={Register} exact />
         <Route path="/addAppointMent" component={AddAppointment} exact />
+        <Route path="secretary/chat" component={Chat} exact />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

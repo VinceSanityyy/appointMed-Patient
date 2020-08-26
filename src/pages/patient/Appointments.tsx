@@ -17,8 +17,8 @@ import {
   IonRefresher,
   IonRefresherContent
 } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Tab1.css';
+import ExploreContainer from '../../components/ExploreContainer';
+// import './Tab1.css';
 import { add, chevronDownCircleOutline } from 'ionicons/icons';
 import { RefresherEventDetail } from '@ionic/core';
 
@@ -27,16 +27,11 @@ import * as firebase from 'firebase/app'
 import 'firebase/database'
 import 'firebase/storage'
 
-const Tab1: React.FC = () => {
+const Appointments: React.FC = () => {
 const [doctors, setDoctor] = React.useState([])
   function clickAdd() {
     console.log('Hello')
   }
-  
-
-
-
-
   return (
     <IonPage>
       <IonHeader>
@@ -73,4 +68,4 @@ const [doctors, setDoctor] = React.useState([])
   );
 };
 
-export default Tab1;
+export default Appointments;

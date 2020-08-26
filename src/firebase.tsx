@@ -31,7 +31,8 @@ export async function loginUser(email:string, password:string){
       }else if(snap.val().type == 'doctor'){
         alert('doctor user')
       }else{
-        alert('secretary user')
+        // alert('secretary user')
+        window.location.href = "/secretary/appointments"
       }
     })
   }).catch((err)=>{
