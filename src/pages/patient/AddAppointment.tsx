@@ -41,13 +41,14 @@ export const AddAppointment: React.FC = () => {
     loading.present();
     console.log(moment(selectedDate).format('YYYY-MM-DD'))
     console.log(moment(selectedTime).format('h:mm A'))
-    firebase.database().ref('appointments').set({
+    firebase.database().ref('appointments').push({
       doctor: detail['name'],
       doctor_email: detail['email'],
       patient: localStorage.getItem('name'),
       date: moment(selectedDate).format('YYYY-MM-DD'),
       time: moment(selectedTime).format('h:mm A'),
       status: 'pending',
+      patient_email: localStorage.getItem('email'),
       queueNo: 99
     })
     loading.dismiss()

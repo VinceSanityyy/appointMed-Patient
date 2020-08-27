@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   IonList,
   IonItem,
@@ -15,23 +15,50 @@ import {
   IonFabButton,
   IonIcon,
   IonRefresher,
-  IonRefresherContent
+  IonRefresherContent,
+  IonText,
+  useIonViewWillEnter
 } from '@ionic/react';
 import ExploreContainer from '../../components/ExploreContainer';
 // import './Tab1.css';
 import { add, chevronDownCircleOutline } from 'ionicons/icons';
 import { RefresherEventDetail } from '@ionic/core';
 
-
+import moment from 'moment'
 import * as firebase from 'firebase/app'
 import 'firebase/database'
 import 'firebase/storage'
 
 const Appointments: React.FC = () => {
-const [doctors, setDoctor] = React.useState([])
-  function clickAdd() {
-    console.log('Hello')
+const [appointments, setAppointment] = React.useState([])
+
+  // useEffect( ()=>{
+  //   console.log('enter')
+  //   // firebase.database().ref('appointments').equalTo(localStorage.getItem('email')).on('value',(snapshot)=>{
+  //   //   console.log(snapshot.val())
+  //   // })
+  // },[])
+
+  useIonViewWillEnter(()=>{
+    console.log('enter')
+    firebase.database().ref('appointments').orderByChild('patient_email').equalTo(localStorage.getItem('email')).on('value',(snapshot)=>{
+      console.log(snapshot.val())
+      let key;
+      let newArr = []
+      snapshot.forEach((childSnap)=>{
+        key = childSnap.key 
+        const snapVal = snapshot.val()
+        newArr.push(snapVal[key])
+      })
+      setAppointment(newArr)
+      // console.log(appointments)
+    })
+  })
+
+  function test(){
+    console.log(appointments)
   }
+
   return (
     <IonPage>
       <IonHeader>
@@ -47,23 +74,23 @@ const [doctors, setDoctor] = React.useState([])
       </IonRefresher> */}
 
       <IonList>
-          <IonItem>
-            <IonLabel>Pokémon Yellow</IonLabel>
+        {appointments.map((elem,index)=>{
+          return(
+            <IonItem key={index}>
+              <IonLabel className="font-weight: bold;"><h2>{elem['doctor']}</h2>
+              <IonText ><h3>{moment(elem['date']).format('dddd, MMMM-DD-YYYY')}</h3></IonText>
+              </IonLabel>
+          <IonText><h6>{elem['status']}</h6></IonText>
+              
           </IonItem>
-          <IonItem>
-            <IonLabel>Mega Man X</IonLabel>
-          </IonItem>
-          <IonItem>
-            <IonLabel>The Legend of Zelda</IonLabel>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Pac-Man</IonLabel>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Super Mario World</IonLabel>
-          </IonItem>
-        </IonList>
+          )
+        })}    
+      </IonList>
+
+
+       
       </IonContent>
+      <IonButton onClick={test}>Test</IonButton>
     </IonPage>
   );
 };

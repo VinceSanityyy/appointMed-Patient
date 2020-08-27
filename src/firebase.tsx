@@ -32,6 +32,7 @@ export async function loginUser(email:string, password:string){
         alert('doctor user')
       }else{
         // alert('secretary user')
+        localStorage.setItem('doctor_in_charge',snap.val().doctor)
         window.location.href = "/secretary/appointments"
       }
     })
