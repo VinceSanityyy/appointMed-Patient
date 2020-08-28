@@ -53,10 +53,20 @@ const [appointments, setAppointment] = React.useState([])
       setAppointment(newArr)
       // console.log(appointments)
     })
+
+    localStorage.setItem("appointmentDetails",null)
+    console.log('Details Clear')
   })
 
-  function test(){
+  function doRefresh(event: CustomEvent<RefresherEventDetail>){
     console.log(appointments)
+    event.detail.complete();
+    console.log()
+  }
+
+  function saveInfo(e,elem){
+    localStorage.setItem('appointmentDetails', JSON.stringify(elem))
+    // console.log(elem['doctor'])
   }
 
   return (
@@ -68,17 +78,17 @@ const [appointments, setAppointment] = React.useState([])
       </IonHeader>
       <IonContent>
     
-      {/* <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
+      <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
       <IonRefresherContent>
         </IonRefresherContent>
-      </IonRefresher> */}
+      </IonRefresher>
 
       <IonList>
         {appointments.map((elem,index)=>{
           return(
-            <IonItem key={index}>
+            <IonItem onClick={(e) => saveInfo(e,elem)} routerLink="/viewAppointment" key={index} >
               <IonLabel className="font-weight: bold;"><h2>{elem['doctor']}</h2>
-              <IonText ><h3>{moment(elem['date']).format('dddd, MMMM-DD-YYYY')}</h3></IonText>
+              <IonText ><h3>{moment(elem['date']).format('dddd, MMMM DD,YYYY')}</h3></IonText>
               </IonLabel>
           <IonText><h6>{elem['status']}</h6></IonText>
               
@@ -90,7 +100,6 @@ const [appointments, setAppointment] = React.useState([])
 
        
       </IonContent>
-      <IonButton onClick={test}>Test</IonButton>
     </IonPage>
   );
 };

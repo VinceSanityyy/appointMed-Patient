@@ -14,6 +14,7 @@ import { ellipse, square, triangle } from 'ionicons/icons';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AddAppointment from './pages/patient/AddAppointment';
+import ViewAppointment from './pages/patient/ViewAppointment'
 // import Tab1 from './pages/patient/Appointments';
 import Appointments from './pages/patient/Appointments'
 import Chat from './pages/secretary/Chat'
@@ -47,7 +48,8 @@ const App: React.FC = () => (
         <Route path="/secretary" component={HomeSecretary}/>
         <Route path="/register" component={Register} exact />
         <Route path="/addAppointMent" component={AddAppointment} exact />
-        <Route path="secretary/chat" component={Chat} exact />
+        <Route path="/secretary/chat" component={Chat} exact />
+        <Route path="/viewAppointment" component={ViewAppointment} exact />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
