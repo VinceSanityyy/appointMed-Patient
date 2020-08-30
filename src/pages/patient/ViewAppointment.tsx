@@ -29,7 +29,7 @@ const ViewAppointment: React.FC = () =>{
                             {appointmentDetails['doctor']}
                         </IonCardTitle>
                             <IonCardContent>
-                                <IonLabel>Date of Appointment</IonLabel>
+                                <IonLabel>Date of Appointment JUST FUCKING UPDATE</IonLabel>
                                 <h4>{moment(appointmentDetails['date']).format('dddd, MMMM DD, YYYY')}</h4>
                             </IonCardContent>
                     </IonCardHeader>
