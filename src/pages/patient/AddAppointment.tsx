@@ -41,7 +41,8 @@ export const AddAppointment: React.FC = () => {
     loading.present();
     console.log(moment(selectedDate).format('YYYY-MM-DD'))
     console.log(moment(selectedTime).format('h:mm A'))
-    firebase.database().ref('appointments').push({
+    let id = makeid(10)
+    var x = firebase.database().ref('appointments').child(id).set({
       doctor: detail['name'],
       doctor_email: detail['email'],
       patient: localStorage.getItem('name'),
@@ -49,11 +50,21 @@ export const AddAppointment: React.FC = () => {
       time: moment(selectedTime).format('h:mm A'),
       status: 'pending',
       patient_email: localStorage.getItem('email'),
-      queueNo: 99
+      queueNo: 99,
+      key: id
     })
     loading.dismiss()
     window.location.href = "/home/tab1"
   }
+  function makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
 
   return (
     <IonPage>

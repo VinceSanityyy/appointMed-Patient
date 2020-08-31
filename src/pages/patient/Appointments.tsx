@@ -42,7 +42,7 @@ const [appointments, setAppointment] = React.useState([])
   useIonViewWillEnter(()=>{
     console.log('enter')
     firebase.database().ref('appointments').orderByChild('patient_email').equalTo(localStorage.getItem('email')).on('value',(snapshot)=>{
-      console.log(snapshot.val())
+      // console.log(snapshot.val())
       let key;
       let newArr = []
       snapshot.forEach((childSnap)=>{
@@ -51,6 +51,7 @@ const [appointments, setAppointment] = React.useState([])
         newArr.push(snapVal[key])
       })
       setAppointment(newArr)
+      console.log(appointments)
       // console.log(appointments)
     })
 
@@ -61,12 +62,12 @@ const [appointments, setAppointment] = React.useState([])
   function doRefresh(event: CustomEvent<RefresherEventDetail>){
     console.log(appointments)
     event.detail.complete();
-    console.log()
+    // console.log()
   }
 
   function saveInfo(e,elem){
     localStorage.setItem('appointmentDetails', JSON.stringify(elem))
-    // console.log(elem['doctor'])
+    
   }
 
   return (
