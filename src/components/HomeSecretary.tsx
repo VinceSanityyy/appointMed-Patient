@@ -4,9 +4,7 @@ import { calendar, create, logOut, personCircle, map, informationCircle, people,
 import { Redirect, Route } from 'react-router';
 
 // import Appointments from '../pages/patient/Appointments'
-import Appointments from '../pages/patient/Appointments'
-import Tab2 from '../pages/patient/Doctors'
-import Tab3 from '../pages/patient/Clinics'
+import Appointments from '../pages/secretary/Appointments'
 import * as firebase from 'firebase'
 export const HomeSecretary: React.FC = () => {
   function signOut() {
@@ -43,6 +41,7 @@ export const HomeSecretary: React.FC = () => {
     document.body.appendChild(alert);
     return alert.present();
   }
+
   
     return(
       <IonTabs>

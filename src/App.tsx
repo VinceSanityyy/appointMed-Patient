@@ -39,6 +39,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import Home from './components/Home'
 import HomeSecretary from './components/HomeSecretary';
+
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
@@ -50,6 +51,7 @@ const App: React.FC = () => (
         <Route path="/addAppointMent" component={AddAppointment} exact />
         <Route path="/secretary/chat" component={Chat} exact />
         <Route path="/viewAppointment" component={ViewAppointment} exact />
+        {/* <Route path="/secretary/appointments" component={ViewAppointment} exact /> */}
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

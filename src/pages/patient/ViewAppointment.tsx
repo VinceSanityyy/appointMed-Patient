@@ -28,6 +28,7 @@ const ViewAppointment: React.FC = () =>{
             }, {
               text: 'Okay',
               handler: () => {
+                toast()
                 const loading = document.createElement('ion-loading');
                 loading.message = 'Please Wait..';
                 document.body.appendChild(loading);
@@ -44,13 +45,35 @@ const ViewAppointment: React.FC = () =>{
                     key: appointmentDetails['key']
                 })
                 loading.dismiss()
-                window.location.href = "/home/tab1"
+                const alert = document.createElement('ion-alert');
+                alert.cssClass = 'my-custom-class';
+                alert.header = 'Cancelled';
+                alert.buttons = [
+                {
+                      text: 'Okay',
+                      handler: () => {
+                        window.location.href='home/tab1'
+                      }
+                    }
+                  ];
+
+                document.body.appendChild(alert);
+                return alert.present();
               }
             }
           ];
           document.body.appendChild(alert);
           return alert.present();
     }
+
+    function toast(){
+        const toast = document.createElement('ion-toast');
+        toast.message = 'Cancelled!';
+        toast.duration = 2000;
+        toast.position = 'bottom';
+        document.body.appendChild(toast);
+        return toast.present();
+      }
     return(
         <IonPage>
             <IonHeader>
