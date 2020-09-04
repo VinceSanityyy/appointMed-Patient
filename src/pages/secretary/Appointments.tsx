@@ -1,8 +1,9 @@
 import react from 'react'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, useIonViewWillEnter, IonButton } from '@ionic/react';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, useIonViewWillEnter, IonButton, IonList, IonItem, IonLabel, IonText, IonRefresher, IonRefresherContent } from '@ionic/react';
 import React from 'react';
 import * as firebase from 'firebase'
-
+import moment from 'moment';
+import { RefresherEventDetail } from '@ionic/core';
 export const Appointments: React.FC =() => {
 
     const [appointments, setAppointment] = React.useState([])
@@ -27,6 +28,12 @@ export const Appointments: React.FC =() => {
         console.log(appointments)
     })
 
+    function doRefresh(event: CustomEvent<RefresherEventDetail>){
+        console.log(appointments)
+        event.detail.complete();
+        // console.log()
+      }
+
     return(
         <IonPage>
             <IonHeader>
@@ -37,8 +44,24 @@ export const Appointments: React.FC =() => {
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <h1>Hello</h1>
-                <IonButton onClick={test}>test</IonButton>
+            <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
+            <IonRefresherContent>
+                </IonRefresherContent>
+            </IonRefresher>
+            <IonList>
+                {appointments.map((elem,index)=>{
+                return(
+                    <IonItem  key={index} >
+                    <IonLabel className="font-weight: bold;"><h2>{elem['doctor']}</h2>
+                    <IonText ><h3>{moment(elem['date']).format('dddd, MMMM DD,YYYY')}</h3></IonText>
+                    </IonLabel>
+                <IonText><h6>{elem['status']}</h6></IonText>
+                    
+                </IonItem>
+                )
+                })}    
+            </IonList>
+                {/* <IonButton onClick={test}>test</IonButton> */}
             </IonContent>
         </IonPage>
     )

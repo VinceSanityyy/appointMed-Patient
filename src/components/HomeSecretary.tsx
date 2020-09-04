@@ -53,6 +53,10 @@ export const HomeSecretary: React.FC = () => {
           <IonIcon icon={calendar} />
           <IonLabel>Appointments</IonLabel>
         </IonTabButton>
+        <IonTabButton tab="schedule" href="/secretary/appointments">
+          <IonIcon icon={mail} />
+          <IonLabel>Chats</IonLabel>
+        </IonTabButton>
         <IonTabButton onClick={signOut} >
           <IonIcon icon={logOut} />
           <IonLabel>Sign Out</IonLabel>
