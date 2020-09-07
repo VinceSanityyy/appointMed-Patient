@@ -4,6 +4,7 @@ import React from 'react';
 import * as firebase from 'firebase'
 import moment from 'moment';
 import { RefresherEventDetail } from '@ionic/core';
+import { save } from 'ionicons/icons';
 export const Appointments: React.FC =() => {
 
     const [appointments, setAppointment] = React.useState([])
@@ -21,6 +22,8 @@ export const Appointments: React.FC =() => {
             })
             setAppointment(newArr)
             // console.log(appointments)
+            localStorage.setItem("appointmentDetailsSecretary",null)
+            console.log('Details Clear')
         }))
     })
     
@@ -32,7 +35,11 @@ export const Appointments: React.FC =() => {
         console.log(appointments)
         event.detail.complete();
         // console.log()
-      }
+    }
+
+    const saveDetails = ((e,elem)=>{
+        localStorage.setItem('appointmentDetailsSecretary', JSON.stringify(elem))
+    })
 
     return(
         <IonPage>
@@ -51,9 +58,9 @@ export const Appointments: React.FC =() => {
             <IonList>
                 {appointments.map((elem,index)=>{
                 return(
-                    <IonItem  key={index} >
-                    <IonLabel className="font-weight: bold;"><h2>{elem['doctor']}</h2>
-                    <IonText ><h3>{moment(elem['date']).format('dddd, MMMM DD,YYYY')}</h3></IonText>
+                    <IonItem onClick={(e)=> saveDetails(e,elem)} routerLink="/viewAppointmentSecretary" key={index} >
+                        <IonLabel className="font-weight: bold;"><h2>{elem['doctor']}</h2>
+                        <IonText ><h3>{moment(elem['date']).format('dddd, MMMM DD,YYYY')}</h3></IonText>
                     </IonLabel>
                 <IonText><h6>{elem['status']}</h6></IonText>
                     
