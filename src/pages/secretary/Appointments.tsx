@@ -59,7 +59,7 @@ export const Appointments: React.FC =() => {
                 {appointments.map((elem,index)=>{
                 return(
                     <IonItem onClick={(e)=> saveDetails(e,elem)} routerLink="/viewAppointmentSecretary" key={index} >
-                        <IonLabel className="font-weight: bold;"><h2>{elem['doctor']}</h2>
+                        <IonLabel className="font-weight: bold;"><h2>{elem['patient']}</h2>
                         <IonText ><h3>{moment(elem['date']).format('dddd, MMMM DD,YYYY')}</h3></IonText>
                     </IonLabel>
                 <IonText><h6>{elem['status']}</h6></IonText>
