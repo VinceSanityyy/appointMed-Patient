@@ -16,7 +16,6 @@ import Register from './pages/Register';
 import AddAppointment from './pages/patient/AddAppointment';
 import ViewAppointment from './pages/patient/ViewAppointment'
 import ViewAppointmentSecretary from './pages/secretary/ViewAppointmentSecretary'
-// import Tab1 from './pages/patient/Appointments';
 import Appointments from './pages/patient/Appointments'
 import Chat from './pages/secretary/Chat'
 
@@ -50,7 +49,7 @@ const App: React.FC = () => (
         <Route path="/secretary" component={HomeSecretary}/>
         <Route path="/register" component={Register} exact />
         <Route path="/addAppointMent" component={AddAppointment} exact />
-        <Route path="/secretary/chat" component={Chat} exact />
+        {/* <Route path="/secretary/chat" component={Chat} exact /> */}
         <Route path="/viewAppointment" component={ViewAppointment} exact />
         <Route path="/viewAppointmentSecretary" component={ViewAppointmentSecretary} exact />
       </IonRouterOutlet>

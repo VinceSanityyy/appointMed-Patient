@@ -5,6 +5,7 @@ import { Redirect, Route } from 'react-router';
 
 // import Appointments from '../pages/patient/Appointments'
 import Appointments from '../pages/secretary/Appointments'
+import Chat from '../pages/secretary/Chat'
 import * as firebase from 'firebase'
 export const HomeSecretary: React.FC = () => {
   function signOut() {
@@ -47,13 +48,14 @@ export const HomeSecretary: React.FC = () => {
       <IonTabs>
       <IonRouterOutlet>
         <Route path="/secretary/appointments" component={Appointments} />
+        <Route path="/secretary/chat" component={Chat} />
       </IonRouterOutlet>
       <IonTabBar color="dark" slot="bottom">
         <IonTabButton tab="schedule" href="/secretary/appointments">
           <IonIcon icon={calendar} />
           <IonLabel>Appointments</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="schedule" href="/secretary/appointments">
+        <IonTabButton tab="chat" href="/secretary/chat" >
           <IonIcon icon={mail} />
           <IonLabel>Chats</IonLabel>
         </IonTabButton>

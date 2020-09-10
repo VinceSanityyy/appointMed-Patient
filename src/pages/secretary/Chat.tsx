@@ -8,7 +8,7 @@ const Chat: React.FC = () =>{
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>
-                        C
+                        Content-C
                     </IonTitle>
                 </IonToolbar>
             </IonHeader>
