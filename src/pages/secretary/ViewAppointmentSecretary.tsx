@@ -5,7 +5,7 @@ import moment from 'moment'
 import * as firebase from 'firebase'
 export const ViewAppointmentSecretary: React.FC = (()=>{
     const [appointmentDetailsSecretary, setDetails] = React.useState([])
-    const [showModal, setShowModal] = useState(false);
+    const [message, setMessage] = React.useState('')
     useIonViewWillEnter(()=>{
         console.log('enter')
         console.log(JSON.parse(localStorage.getItem('appointmentDetailsSecretary')))
@@ -76,37 +76,43 @@ export const ViewAppointmentSecretary: React.FC = (()=>{
         return alert.present();
     }
 
-
-    // customElements.define('modal-page', class extends HTMLElement {
-    //     connectedCallback() {
-    //       this.innerHTML = `
-    //   <ion-header>
-    //     <ion-toolbar>
-    //       <ion-title>Modal Header</ion-title>
-    //       <ion-buttons slot="primary">
-    //         <ion-button onClick="dismissModal()">
-    //           <ion-icon slot="icon-only" name="close"></ion-icon>
-    //         </ion-button>
-    //       </ion-buttons>
-    //     </ion-toolbar>
-    //   </ion-header>
-    //   <ion-content class="ion-padding">
-    //     Modal Content
-    //   </ion-content>`;
-    //     }
-    // });
-
-    // function presentModal() {
-    //     // create the modal with the `modal-page` component
-    //     const modalElement = document.createElement('ion-modal');
-    //     modalElement.component = 'modal-page';
-    //     modalElement.cssClass = 'my-custom-class';
+    function presentAlertPrompt() {
+        const alert = document.createElement('ion-alert');
+        alert.cssClass = 'my-custom-class';
+        alert.header = 'Message';
+        alert.inputs = [
+          {
+            name: message,
+            id: 'paragraph',
+            type: 'textarea',
+            placeholder: 'Message Body...'
+          },
+        ];
+        alert.buttons = [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              console.log('Cancelled.')
+            }
+          }, {
+            text: 'Ok',
+            handler: () => {
+              console.log('Confirm Ok')
+              firebase.database().ref('/chats').push({
+                  message: message,
+                  patient: appointmentDetailsSecretary['patient_email'],
+                  doctor: appointmentDetailsSecretary['doctor'],
+              })
+              console.log('Sent')
+            }
+          }
+        ];
       
-    //     // present the modal
-    //     document.body.appendChild(modalElement);
-    //     return modalElement.present();
-    //   }
-    
+        document.body.appendChild(alert);
+        return alert.present();
+      }
     return(
         <IonPage>
             <IonHeader>
@@ -136,12 +142,9 @@ export const ViewAppointmentSecretary: React.FC = (()=>{
                    </IonCardContent>
                </IonCard>
                <IonButton onClick={presentAlertConfirm} expand="block">Update</IonButton>
-               <IonButton onClick={() => setShowModal(true)} color="secondary" expand="block">Chat</IonButton>
+               <IonButton onClick={presentAlertPrompt} color="secondary" expand="block">Chat</IonButton>
 
-               <IonModal isOpen={showModal} cssClass='my-custom-class'>
-                <p>This is modal content</p>
-                    <IonButton onClick={() => setShowModal(false)}>Close Modal</IonButton>
-                </IonModal>
+              
             </IonContent>
         </IonPage>
     )
