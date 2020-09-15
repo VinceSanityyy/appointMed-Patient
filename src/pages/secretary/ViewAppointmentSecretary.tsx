@@ -83,7 +83,7 @@ export const ViewAppointmentSecretary: React.FC = (()=>{
         alert.inputs = [
           {
             name: message,
-            id: 'paragraph',
+            id: message,
             type: 'textarea',
             placeholder: 'Message Body...'
           },
@@ -98,14 +98,16 @@ export const ViewAppointmentSecretary: React.FC = (()=>{
             }
           }, {
             text: 'Ok',
-            handler: () => {
+            handler: (data) => {
               console.log('Confirm Ok')
               firebase.database().ref('/chats').push({
-                  message: message,
-                  patient: appointmentDetailsSecretary['patient_email'],
+                  message: data[0],
+                  patient_email: appointmentDetailsSecretary['patient_email'],
+                  patient: appointmentDetailsSecretary['patient'],
                   doctor: appointmentDetailsSecretary['doctor'],
+                  doctor_email: appointmentDetailsSecretary['doctor_email'],
               })
-              console.log('Sent')
+              console.log(data)
             }
           }
         ];
