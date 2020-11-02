@@ -46,7 +46,7 @@ export const Appointments: React.FC =() => {
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>
-                        Test
+                        Appointments
                     </IonTitle>
                 </IonToolbar>
             </IonHeader>

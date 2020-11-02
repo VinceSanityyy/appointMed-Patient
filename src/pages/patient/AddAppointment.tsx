@@ -51,7 +51,8 @@ export const AddAppointment: React.FC = () => {
       status: 'pending',
       patient_email: localStorage.getItem('email'),
       queueNo: 99,
-      key: id
+      key: id,
+      uid: localStorage.getItem('uid')
     })
     loading.dismiss()
     window.location.href = "/home/tab1"

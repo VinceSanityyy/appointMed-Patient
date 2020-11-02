@@ -18,7 +18,8 @@ import ViewAppointment from './pages/patient/ViewAppointment'
 import ViewAppointmentSecretary from './pages/secretary/ViewAppointmentSecretary'
 import Appointments from './pages/patient/Appointments'
 import Chat from './pages/secretary/Chat'
-
+import Conversation from './pages/secretary/Conversation'
+import PatientConversation from './pages/patient/PatientConversation'
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -52,6 +53,8 @@ const App: React.FC = () => (
         {/* <Route path="/secretary/chat" component={Chat} exact /> */}
         <Route path="/viewAppointment" component={ViewAppointment} exact />
         <Route path="/viewAppointmentSecretary" component={ViewAppointmentSecretary} exact />
+        <Route path="/conversation" component={Conversation} exact />
+        <Route path="/patientConversation" component={PatientConversation} exact/>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

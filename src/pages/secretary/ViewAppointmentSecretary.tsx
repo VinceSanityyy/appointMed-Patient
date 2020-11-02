@@ -6,6 +6,7 @@ import * as firebase from 'firebase'
 export const ViewAppointmentSecretary: React.FC = (()=>{
     const [appointmentDetailsSecretary, setDetails] = React.useState([])
     const [message, setMessage] = React.useState('')
+    const [buttonStat, setStat] = React.useState(false)
     useIonViewWillEnter(()=>{
         console.log('enter')
         console.log(JSON.parse(localStorage.getItem('appointmentDetailsSecretary')))
@@ -31,7 +32,8 @@ export const ViewAppointmentSecretary: React.FC = (()=>{
                 status: 'Declined',
                 patient_email: appointmentDetailsSecretary['patient_email'],
                 queueNo: appointmentDetailsSecretary['queueNo'],
-                key: appointmentDetailsSecretary['key']
+                key: appointmentDetailsSecretary['key'],
+                uid: appointmentDetailsSecretary['uid']
                 })
                 presentAlert()
             }
@@ -48,7 +50,8 @@ export const ViewAppointmentSecretary: React.FC = (()=>{
                 status: 'Approved',
                 patient_email: appointmentDetailsSecretary['patient_email'],
                 queueNo: appointmentDetailsSecretary['queueNo'],
-                key: appointmentDetailsSecretary['key']
+                key: appointmentDetailsSecretary['key'],
+                uid: appointmentDetailsSecretary['uid']
                 })
                 presentAlert()
             }
@@ -100,14 +103,35 @@ export const ViewAppointmentSecretary: React.FC = (()=>{
             text: 'Ok',
             handler: (data) => {
               console.log('Confirm Ok')
-              firebase.database().ref('/chats').push({
-                  message: data[0],
-                  patient_email: appointmentDetailsSecretary['patient_email'],
-                  patient: appointmentDetailsSecretary['patient'],
-                  doctor: appointmentDetailsSecretary['doctor'],
-                  doctor_email: appointmentDetailsSecretary['doctor_email'],
+              let id = makeid(10)
+              var currdate = new Date;
+              
+              firebase.database().ref('chats').push({
+                  reciever_name: appointmentDetailsSecretary['patient'],
+                  sender_name: localStorage.getItem('name'),
+                  sender: localStorage.getItem('uid'),
+                  reciever: appointmentDetailsSecretary['uid'],
+                  // lastMessageSent: data[0],
+                  timestamp: new Date().toLocaleString().replace(',','')
               })
               console.log(data)
+              firebase.database().ref('messages').push({
+                // reciever_name: appointmentDetailsSecretary['patient'],
+                // sender_name: localStorage.getItem('name'),
+                // sender: localStorage.getItem('uid'),
+                // reciever: appointmentDetailsSecretary['uid'],
+                // lastMessageSent: data[0],
+                // timestamp: new Date().toLocaleString().replace(',','')
+                sec:localStorage.getItem('uid'),
+                pat:appointmentDetailsSecretary['uid'],
+                reciever_name: appointmentDetailsSecretary['patient'],
+                sender_name: localStorage.getItem('name'),
+                sender: localStorage.getItem('uid'),
+                reciever: appointmentDetailsSecretary['uid'],
+                lastMessageSent: data[0],
+                timestamp: new Date().toLocaleString().replace(',','')
+            })
+            setStat(true)
             }
           }
         ];
@@ -115,6 +139,15 @@ export const ViewAppointmentSecretary: React.FC = (()=>{
         document.body.appendChild(alert);
         return alert.present();
       }
+      function makeid(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+           result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+     }
     return(
         <IonPage>
             <IonHeader>
@@ -144,7 +177,7 @@ export const ViewAppointmentSecretary: React.FC = (()=>{
                    </IonCardContent>
                </IonCard>
                <IonButton onClick={presentAlertConfirm} expand="block">Update</IonButton>
-               <IonButton onClick={presentAlertPrompt} color="secondary" expand="block">Chat</IonButton>
+               <IonButton onClick={presentAlertPrompt} disabled={buttonStat} color="secondary" expand="block">Chat</IonButton>
 
               
             </IonContent>
